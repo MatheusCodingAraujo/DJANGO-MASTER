@@ -1,6 +1,4 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <style>
   .car-card {
     background-color: #e3e1e1;
@@ -80,17 +78,28 @@
   }
 </style>
 <div class="car-card">
-  <img src="{{ object.Foto.url }}" alt="{{ object.Nome }} - {{ object.Categoria }}">
+  {% if object.Foto %}
+  <img
+    src="{{ object.Foto.url }}"
+    alt="{{ object.Nome }} - {{ object.Categoria }}"
+  />
+  {% endif %}
   <h2>({{ object.Categoria }}) {{ object.Nome }}</h2>
   <p><strong>CEP:</strong> {{ object.CEP }}</p>
   <p><strong>Telefone:</strong> {{ object.Telefone }}</p>
   <p><strong>Data de Nascimento:</strong> {{ object.DataNascimento }}</p>
+  {%if object.Bio%}
+  <p><strong>Bio:</strong> {{ object.Bio }}</p>
+  {% endif %}
 </div>
 {% if user.is_authenticated %}
 <div class="buttons-container">
-  <a href="{% url 'Contato_update' pk=object.pk%}" class="btn btn-primary">Editar</a>
+  <a href="{% url 'Contato_update' pk=object.pk%}" class="btn btn-primary"
+    >Editar</a
+  >
   <a href="{%url 'Contatos_list' %}" class="btn btn-secondary">Voltar</a>
-  <a href="{% url 'Contato_delete' pk=object.pk%}" class="btn btn-danger">Deletar</a>
+  <a href="{% url 'Contato_delete' pk=object.pk%}" class="btn btn-danger"
+    >Deletar</a
+  >
 </div>
-{% endif %}
-{% endblock %}
+{% endif %} {% endblock %}

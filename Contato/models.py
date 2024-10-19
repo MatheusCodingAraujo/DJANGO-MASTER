@@ -18,10 +18,11 @@ class Contato(models.Model):
     DataNascimento = models.DateField(blank=True, null=True)
     CEP = models.CharField(max_length=20, blank=True, null=True)
     User = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name='user_id')
+        User, on_delete=models.PROTECT, related_name='user_contato', blank=True, null=True)
     Categoria = models.ForeignKey(
         Categoria, on_delete=models.PROTECT, related_name='Categoria_id')
     Foto = models.ImageField(upload_to='Contato/', blank=True, null=True)
+    Bio = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.Nome
@@ -29,3 +30,11 @@ class Contato(models.Model):
 class ContatoInventory(models.Model):
     contato_count = models.IntegerField()
     created_at = models.DateField(auto_now_add=True)
+    User = models.ForeignKey(
+        User, on_delete=models.PROTECT, related_name='user_inventario')
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.contato_count}'
