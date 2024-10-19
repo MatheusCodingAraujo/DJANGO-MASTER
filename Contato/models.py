@@ -25,3 +25,7 @@ class Contato(models.Model):
 
     def __str__(self):
         return self.Nome
+
+class ContatoInventory(models.Model):
+    contato_count = models.IntegerField()
+    created_at = models.DateField(auto_now_add=True)

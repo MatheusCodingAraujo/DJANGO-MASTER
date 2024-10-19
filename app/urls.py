@@ -26,6 +26,7 @@ urlpatterns = [
     path('register/', Register_View, name='register'),
     path('login/', Login_View, name='login'),
     path('logout/', Logout_View, name='logout'),
+    path('', ContatoListView.as_view(), name='Contatos_list'),
     path('Contato/', ContatoListView.as_view(), name='Contatos_list'),
     path('New_Contato/', ContatoCreateView.as_view(), name='New_Contato'),
     path('Contato/<int:pk>/', ContatoDetailView.as_view(), name='Contato_Detail'),

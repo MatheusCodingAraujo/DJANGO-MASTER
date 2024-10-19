@@ -1,6 +1,8 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from Contato.models import Contato
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect
 from Contato.forms import ContatoModelForm
 from django.urls import reverse_lazy
@@ -32,7 +34,7 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 #            request, 'Contato.html', {'contatos': contatos}
 #        )
 
-
+@method_decorator(login_required(login_url='login'), name='dispatch')
 class ContatoListView(ListView):
     model = Contato
     template_name = 'Contato.html'
@@ -72,7 +74,7 @@ class ContatoListView(ListView):
 #            return redirect('Contatos_list')
 #        return render(request, 'New_Contato.html', {'New_Contato_Form': New_Contato_Form})
 
-
+@method_decorator(login_required(login_url='login'), name='dispatch')
 class ContatoCreateView(CreateView):
     model = Contato
     # lembra que tem q trocar o html para form, pois a view troca a informação automaticamente
@@ -81,11 +83,12 @@ class ContatoCreateView(CreateView):
     success_url = '/Contato/'
 
 
+@method_decorator(login_required(login_url='Login'), name='dispatch')
 class ContatoDetailView(DetailView):
     model = Contato
     template_name = 'Contato_detail.html'
 
-
+@method_decorator(login_required(login_url='Login'), name='dispatch')
 class ContatoUpdateView(UpdateView):
     model = Contato
     form_class = ContatoModelForm
@@ -94,7 +97,7 @@ class ContatoUpdateView(UpdateView):
     def get_success_url(self):
         return reverse_lazy('Contato_Detail', kwargs={'pk': self.object.pk})
 
-
+@method_decorator(login_required(login_url='Login'), name='dispatch')
 class ContatoDeleteView(DeleteView):
     model = Contato
     template_name = 'Contato_delete.html'
